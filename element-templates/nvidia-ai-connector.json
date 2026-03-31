@@ -1,0 +1,390 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Nvidia AI Connector",
+  "id": "io.camunda.connector.nvidia.ai.template.v1",
+  "version": 3,
+  "description": "Execute AI-driven task completions using NVIDIA AI models for automated processes",
+  "category": {
+    "id": "connectors",
+    "name": "Connectors"
+  },
+  "appliesTo": [
+    "bpmn:Task"
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
+  },
+  "groups": [
+    {
+      "id": "authentication",
+      "label": "Authentication"
+    },
+    {
+      "id": "request",
+      "label": "Payload"
+    },
+    {
+      "id": "output",
+      "label": "Response mapping"
+    },
+    {
+      "id": "errors",
+      "label": "Error handling"
+    },
+    {
+      "id": "retries",
+      "label": "Retries"
+    }
+  ],
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "io.camunda:nvidia-ai-connector:1",
+      "binding": {
+        "type": "zeebe:taskDefinition",
+        "property": "type"
+      }
+    },
+    {
+      "id": "apiKey",
+      "label": "API Key",
+      "description": "NVIDIA API Key",
+      "type": "String",
+      "group": "authentication",
+      "feel": "optional",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "apiKey"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "model",
+      "label": "Model",
+      "description": "Select the Model",
+      "type": "Dropdown",
+      "group": "request",
+      "value": "qwen/qwen3.5-122b-a10b",
+      "choices": [
+        {
+          "name": "AI21 Jamba 1.5 Mini",
+          "value": "ai21labs/jamba-1.5-mini-instruct"
+        },
+        {
+          "name": "Speakleash | Bielik 11B v2.6",
+          "value": "speakleash/bielik-11b-v2.6-instruct"
+        },
+        {
+          "name": "DeepSeek R1 Distill Qwen 32B",
+          "value": "deepseek-ai/deepseek-r1-distill-qwen-32b"
+        },
+        {
+          "name": "DeepSeek V3.1",
+          "value": "deepseek-ai/deepseek-v3.1"
+        },
+        {
+          "name": "DeepSeek V3.1 Terminus",
+          "value": "deepseek-ai/deepseek-v3.1-terminus"
+        },
+        {
+          "name": "DeepSeek V3.2",
+          "value": "deepseek-ai/deepseek-v3.2"
+        },
+        {
+          "name": "Google | Gemma 3n E4B IT",
+          "value": "google/gemma-3n-e4b-it"
+        },
+        {
+          "name": "Z-ai | GLM 4.7",
+          "value": "z-ai/glm4.7"
+        },
+        {
+          "name": "Z-ai |GLM 5",
+          "value": "z-ai/glm5"
+        },
+        {
+          "name": "IBM | Granite 3.3 8B",
+          "value": "ibm/granite-3,3-8b-instruct"
+        },
+        {
+          "name": "Openai | GPT OSS 120B",
+          "value": "openai/gpt-oss-120b"
+        },
+        {
+          "name": "Openai | GPT OSS 20B",
+          "value": "openai/gpt-oss-20b"
+        },
+        {
+          "name": "Moonshotai | Kimi K2.5",
+          "value": "moonshotai/kimi-k2.5"
+        },
+        {
+          "name": "Moonshotai | kimi K2 Thinking",
+          "value": "moonshotai/kimi-k2-thinking"
+        },
+        {
+          "name": "Moonshotai | kimi K2 Instruct",
+          "value": "moonshotai/kimi-k2-instruct"
+        },
+        {
+          "name": "Moonshotai | Kimi K2 Instruct 0905",
+          "value": "moonshotai/kimi-k2-instruct-0905"
+        },
+        {
+          "name": "Meta | LLaMA 3.2 3B Instruct",
+          "value": "meta/llama-3.2-3b-instruct"
+        },
+        {
+          "name": "Meta | LLaMA 4 Maverick 17B",
+          "value": "meta/llama-4-maverick-17b-128e-instruct"
+        },
+        {
+          "name": "Istitute-of-science-tokyo | LLaMA Swallow 70B",
+          "value": "institute-of-science-tokyo/llama-3-1-swallow-70b-instruct-v0.1"
+        },
+        {
+          "name": "Magistral Small 2506",
+          "value": "mistralai/magistral-small-2506"
+        },
+        {
+          "name": "MiniMax M2.5",
+          "value": "minimaxai/minimax-m2.5"
+        },
+        {
+          "name": "Mistral Large 3",
+          "value": "mistralai/mistral-large-3-675b-instruct-2512"
+        },
+        {
+          "name": "Mistral Medium 3",
+          "value": "mistralai/mistral-medium-3-instruct"
+        },
+        {
+          "name": "Magistral |Devstral 2 123B Instruct",
+          "value": "mistralai/devstral-2-123b-instruct-2512"
+        },
+        {
+          "name": "Mistral Nemotron",
+          "value": "mistralai/mistral-nemotron"
+        },
+        {
+          "name": "Mistral Small 3.1",
+          "value": "mistralai/mistral-small-3.1-24b-instruct-2503"
+        },
+        {
+          "name": "Mistral Small 4",
+          "value": "mistralai/mistral-small-4-119b-2603"
+        },
+        {
+          "name": "Mixtral 8x7B",
+          "value": "mistralai/mixtral-8x7b-instruct"
+        },
+        {
+          "name": "Nvidia | LLaMA 3.1 Nemotron Nano VL 8B",
+          "value": "nvidia/llama-3.1-nemotron-nano-vl-8b-v1"
+        },
+        {
+          "name": "Nvidia | LLaMA 3.3 Nemotron Super 49B",
+          "value": "nvidia/llama-3.3-nemotron-super-49b-v1.5"
+        },
+        {
+          "name": "Nvidia | Nemotron Nano 12B VL",
+          "value": "nvidia/nemotron-nano-12b-v2-vl"
+        },
+        {
+          "name": "Nvidia | Nemotron Nano 30B",
+          "value": "nvidia/nemotron-3-nano-30b-a3b"
+        },
+        {
+          "name": "Nvidia | Nemotron Nano 9B",
+          "value": "nvidia-nemotron-nano-9b-v2"
+        },
+        {
+          "name": "Nvidia | Nemotron Super 120B",
+          "value": "nvidia/nemotron-3-super-120b-a12b"
+        },
+        {
+          "name": "Microsoft | Phi 4 Mini Flash Reasoning",
+          "value": "microsoft/phi-4-mini-flash-reasoning"
+        },
+        {
+          "name": "Microsoft | Phi 4 Mini Instruct",
+          "value": "microsoft/phi-4-mini-instruct"
+        },
+        {
+          "name": "Qwen 2.5 Coder 32B",
+          "value": "qwen/qwen2.5-coder-32b-instruct"
+        },
+        {
+          "name": "Qwen 3 Next 80B Instruct",
+          "value": "qwen/qwen3-next-80b-a3b-instruct"
+        },
+        {
+          "name": "Qwen 3 Next 80B Thinking",
+          "value": "qwen/qwen3-next-80b-a3b-thinking"
+        },
+        {
+          "name": "Qwen 3.5 122B",
+          "value": "qwen/qwen3.5-122b-a10b"
+        },
+        {
+          "name": "Qwen 3.5 397B",
+          "value": "qwen/qwen3.5-397b-a17b"
+        },
+        {
+          "name": "Qwen 3 Coder 480B",
+          "value": "qwen/qwen3-coder-480b-a35b-instruct"
+        },
+        {
+          "name": "Bytedance | Seed OSS 36B",
+          "value": "bytedance/seed-oss-36b-instruct"
+        },
+        {
+          "name": "Stepfun-ai | Step 3.5 Flash",
+          "value": "stepfun-ai/step-3.5-flash"
+        },
+        {
+          "name": "Stockmark 2 100B",
+          "value": "stockmark/stockmark-2-100b-instruct"
+        },
+        {
+          "name": "Opengpt-x | Teuken 7B Instruct",
+          "value": "opengpt-x/teuken-7b-instruct-commercial-v0.4"
+        },
+        {
+          "name": "Other",
+          "value": "other"
+        }
+      ],
+      "binding": {
+        "type": "zeebe:input",
+        "name": "model"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "otherModel",
+      "label": "Other Model",
+      "description": "Enter model name if 'Other' is selected",
+      "type": "String",
+      "group": "request",
+      "feel": "optional",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "model"
+      },
+      "constraints": {
+        "notEmpty": true
+      },
+      "condition": {
+        "property": "model",
+        "equals": "other"
+      }
+    },
+    {
+      "id": "prompt",
+      "label": "Prompt",
+      "description": "Input prompt for the model",
+      "feel": "optional",
+      "type": "Text",
+      "group": "request",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "prompt"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "url",
+      "label": "API URL",
+      "description": "NVIDIA API endpoint URL",
+      "type": "Hidden",
+      "group": "request",
+      "value": "https://integrate.api.nvidia.com/v1/chat/completions",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "url"
+      }
+    },
+    {
+      "label": "Result Variable",
+      "description": "Process variable to store response",
+      "type": "String",
+      "group": "output",
+      "value": "aiResponse",
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "resultVariable"
+      }
+    },
+    {
+      "label": "Result Expression",
+      "description": "Expression to map the response into process variables",
+      "type": "Text",
+      "group": "output",
+      "feel": "required",
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "resultExpression"
+      }
+    },
+    {
+      "id": "errorExpression",
+      "label": "Error expression",
+      "description": "Expression to handle errors. Details in the <a href=\"https://docs.camunda.io/docs/components/connectors/use-connectors/\" target=\"_blank\">documentation</a>.",
+      "feel": "required",
+      "group": "errors",
+      "binding": {
+        "key": "errorExpression",
+        "type": "zeebe:taskHeader"
+      },
+      "type": "Text"
+    },
+    {
+      "id": "connectionTimeout",
+      "label": "Connection timeout",
+      "description": "Timeout in seconds (0 for infinite)",
+      "group": "retries",
+      "type": "String",
+      "value": "120",
+      "optional": true,
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "connectionTimeoutInSeconds"
+      }
+    },
+    {
+      "id": "retryCount",
+      "label": "Retries",
+      "description": "Number of retries",
+      "value": "3",
+      "feel": "optional",
+      "group": "retries",
+      "binding": {
+        "property": "retries",
+        "type": "zeebe:taskDefinition"
+      },
+      "type": "String"
+    },
+    {
+      "id": "retryBackoff",
+      "label": "Retry backoff",
+      "description": "ISO-8601 duration to wait between retries",
+      "value": "PT0S",
+      "group": "retries",
+      "binding": {
+        "key": "retryBackoff",
+        "type": "zeebe:taskHeader"
+      },
+      "type": "String"
+    }
+  ],
+  "icon": {
+    "contents": "data:image/jpeg;base64,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"
+  }
+}
