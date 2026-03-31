@@ -48,13 +48,13 @@ public class NvidiaAIOutboundConnectorFunction implements OutboundConnectorFunct
 
         NvidiaAIRequest request = context.bindVariables(NvidiaAIRequest.class);
         Map<String, String> headers = context.getJobContext().getCustomHeaders();
-        String connectionTimeoutInSeconds = headers.get("connectionTimeoutInSeconds");
+        String connectionTimeout = headers.get("connectionTimeoutInSeconds");
         LOGGER.info("Received request: {}", request);
 
-        return callNvidiaAPI(request,connectionTimeoutInSeconds);
+        return callNvidiaAPI(request,connectionTimeout);
     }
 
-    private Object callNvidiaAPI(NvidiaAIRequest req,String connectionTimeoutInSeconds) {
+    private Object callNvidiaAPI(NvidiaAIRequest req,String connectionTimeout) {
 
         try {
             Map<String, Object> payload = new HashMap<>();
@@ -68,7 +68,7 @@ public class NvidiaAIOutboundConnectorFunction implements OutboundConnectorFunct
 
             HttpRequest httpRequest = HttpRequest.newBuilder()
                     .uri(URI.create(req.url()))
-                    .timeout(Duration.ofSeconds(Integer.parseInt(connectionTimeoutInSeconds)))
+                    .timeout(Duration.ofSeconds(Integer.parseInt(connectionTimeout)))
                     .header("Authorization", "Bearer " + req.apiKey())
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
