@@ -8,10 +8,9 @@ It enables dynamic invocation of multiple AI models directly from BPMN workflows
 
 ## Features
 
-* Integrates with NVIDIA AI Chat Completion API
 * Enables orchestration of AI-driven tasks across microservices and external systems  
 * Seamlessly integrates AI capabilities into Camunda 8 workflows  
-* Supports multiple AI models (Qwen, Mistral, DeepSeek, etc.)
+* Supports multiple AI models (Qwen, Mistral, DeepSeek,Meta, etc.)
 * Dynamic request payload (model, prompt)
 * Structured response with usage tokens
 
@@ -19,7 +18,7 @@ It enables dynamic invocation of multiple AI models directly from BPMN workflows
 
 ## Connector UI
 
-<img width="970" height="528" alt="image" src="https://github.com/user-attachments/assets/fe892f20-e3ac-48c7-abd4-2d93ca3531d2" />
+<img width="978" height="520" alt="image" src="https://github.com/user-attachments/assets/b20b7db5-b4bd-4da8-b0fd-bff0e4142347" />
 
 
 ---
@@ -125,8 +124,6 @@ Camunda Modeler → resources → element-templates
    * API Key
    * Model 
    * Prompt
-   * Receiver
-   * Message
 
 5. Deploy and run the process
 
