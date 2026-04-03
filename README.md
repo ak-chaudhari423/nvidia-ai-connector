@@ -35,7 +35,7 @@ It enables dynamic invocation of multiple AI models directly from BPMN workflows
 
 ### Setting Up in Saas/Self managed Environment:
 1.	Navigate to Camunda SaaS.
-2.	Upload the connector template from https://github.com/ak-chaudhari423/nvidia-ai-connector/nvidia-ai-template.json or download it from marketplace.
+2.	Upload the connector template from https://github.com/ak-chaudhari423/nvidia-ai-connector/blob/main/nvidia-ai-template.json or download it from marketplace.
 
 ---
 
