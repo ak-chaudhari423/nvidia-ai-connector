@@ -32,32 +32,10 @@ It enables dynamic invocation of multiple AI models directly from BPMN workflows
 
 ## Setup Guide
 
-### Setting Up Camunda SaaS
 
-1. Navigate to **Camunda SaaS**
-2. Create a cluster using the latest version
-3. Open your cluster → go to **API** section
-4. Click **Create New Client**
-5. Select the **Zeebe** checkbox
-6. Click **Create**
-7. Copy configuration from **Spring Boot tab**
-8. Paste into your `application.properties`
-
----
-
-### Setting Up Self-Managed Environment
-
-1. Setup Camunda Self-Managed using Docker:
-   https://docs.camunda.io/docs/self-managed/setup/deploy/local/docker-compose/
-
-2. Use the following endpoints:
-
-```properties
-camunda.client.zeebe.grpc-address=http://localhost:26500
-camunda.client.zeebe.rest-address=http://localhost:8088
-```
-
-3. Uncomment these properties in your **test resources**
+### Setting Up in Saas/Self managed Environment:
+1.	Navigate to Camunda SaaS.
+2.	Upload the connector template from https://github.com/ak-chaudhari423/nvidia-ai-connector/nvidia-ai-template.json or download it from marketplace.
 
 ---
 
@@ -68,24 +46,6 @@ camunda.client.zeebe.rest-address=http://localhost:8088
 
 ---
 
-## Launching Your Connector
-
-1. Start your connector runtime:
-
-```
-io.camunda.nvidia.ai.LocalConnectorRuntime
-```
-
-2. Open:
-
-   * Web Modeler OR Desktop Modeler
-
-3. Create a new project
-
-4. Upload connector template:
-   https://github.com/ak-chaudhari423/nvidia-ai-connector/blob/main/element-templates/nvidia-ai-connector.json
-
----
 
 ## Using in Desktop Modeler
 

@@ -1,8 +1,8 @@
 {
   "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
   "name": "Nvidia AI Connector",
-  "id": "io.camunda.connector.nvidia.ai.template.v1",
-  "version": 3,
+  "id": "io.camunda.connector.nvidia.ai.template.v2",
+  "version": 5,
   "description": "Execute AI-driven task completions using NVIDIA AI models for automated processes",
   "category": {
     "id": "connectors",
@@ -39,7 +39,7 @@
   "properties": [
     {
       "type": "Hidden",
-      "value": "io.camunda:nvidia-ai-connector:1",
+      "value": "io.camunda:http-json:1",
       "binding": {
         "type": "zeebe:taskDefinition",
         "property": "type"
@@ -312,6 +312,40 @@
       }
     },
     {
+      "type": "Hidden",
+      "value": "POST",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "method"
+      }
+    },
+    {
+      "type": "Hidden",
+      "value": "application/json",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "headers.ContentType"
+      }
+    },
+    {
+      "type": "Hidden",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "headers.Authorization"
+      },
+      "value": "= \"Bearer \" + apiKey"
+    },
+    {
+      "label": "Request Body",
+      "type": "Text",
+      "feel": "required",
+      "value": "={\"model\": model, \"messages\": [{\"role\": \"user\", \"content\": prompt}]}",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "body"
+      }
+    },
+    {
       "label": "Result Variable",
       "description": "Process variable to store response",
       "type": "String",
@@ -328,6 +362,7 @@
       "type": "Text",
       "group": "output",
       "feel": "required",
+      "value": "={ result: response.body.choices[1].message.content }",
       "binding": {
         "type": "zeebe:taskHeader",
         "key": "resultExpression"
@@ -354,8 +389,8 @@
       "value": "120",
       "optional": true,
       "binding": {
-        "type": "zeebe:taskHeader",
-        "key": "connectionTimeoutInSeconds"
+        "type": "zeebe:input",
+        "name": "connectionTimeoutInSeconds"
       }
     },
     {
